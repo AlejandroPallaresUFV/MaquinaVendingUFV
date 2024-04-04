@@ -13,6 +13,7 @@ namespace MaquinaVending
             // Comienza el programa
             Console.Write("Hola, mundo");
             Console.WriteLine("gonza");
+            zabala maricon
         }
     }
 }
