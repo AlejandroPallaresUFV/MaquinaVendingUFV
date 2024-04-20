@@ -11,6 +11,8 @@ namespace MaquinaVending
 
         public MaquinaVending() { }
 
+        public Usuario Usuario { get; set; }    //Usuario que manejara las funciones
+
 
         public void ComprarProductos() 
         {
@@ -29,7 +31,7 @@ namespace MaquinaVending
 
         public void CargaCompleta()
         {
-
+            
         }
 
         public void Salir()

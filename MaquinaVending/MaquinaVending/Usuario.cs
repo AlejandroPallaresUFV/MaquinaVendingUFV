@@ -9,8 +9,30 @@ namespace MaquinaVending
     internal class Usuario
     {
 
+        public int Clave { get; set; } 
+
+        public Producto[] Carrito { get; set; }
+
         public Usuario() { }
 
-        public void 
+        public Usuario(int clave) 
+        {
+            this.Clave = clave;
+        }  
+
+        public void InsertarProducto()
+        {
+
+        }
+
+        public void InsertarNombreArchivo()
+        {
+
+        }
+
+        public void CargarProductos()
+        {
+
+        }
     }
 }
