@@ -10,11 +10,8 @@ namespace MaquinaVending
     {
 
         public int Clave { get; set; }
-
         protected List<Producto> listaProductos;
-
         public List<Producto> Carrito { get; set; }
-
         public double PrecioTotal { get; set; }
 
         public Usuario() { }
@@ -43,9 +40,14 @@ namespace MaquinaVending
             }
         }
 
-        public void InsertarNombreArchivo()
+        public string InsertarNombreArchivo()
         {
+            string texto;
 
+            Console.WriteLine("Indique el nombre del archivo:");
+            texto = Console.ReadLine();
+
+            return texto;
         }
 
         public void CargarProductos()
