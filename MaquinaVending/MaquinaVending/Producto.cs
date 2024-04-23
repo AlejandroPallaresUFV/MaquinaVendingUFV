@@ -23,9 +23,12 @@ namespace MaquinaVending
             Descripcion = descripcion;
         }
 
-        public virtual void MostrarInformaciónProducto() { }
+        public virtual void MostrarInformaciónProducto() { 
+            //AQUI IMPRIME ID NOMBRE UNIDADES Y PRECIO
+        }
 
-        public virtual void MostrarInofrmacionExtensa() {
+        public virtual void MostrarInformacionExtensa() {
+            //IMPRIME LA INFORMACION COMPLETA
 
         }
     }
