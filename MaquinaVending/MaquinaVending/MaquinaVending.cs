@@ -32,7 +32,19 @@ namespace MaquinaVending
                 Console.WriteLine("Introduce el Id del producto");
                 int id = int.Parse(Console.ReadLine());
                 Usuario.InsertarProducto(id);
+
+                Console.WriteLine("Quiere añadir otro producto? \n 1.Si\n 2.No");
+                int decision = int.Parse(Console.ReadLine());
+
+                if (decision == 0)
+                {
+                    flag = true;
+                }
             }
+
+            Pago pago = new Pago();
+
+            pago.Pagar();
         }
 
         public  void MostrarInformacion() 
@@ -79,7 +91,7 @@ namespace MaquinaVending
                     case 1:
                         foreach( Producto p in listaProductos)
                         {
-                           p.MostrarInformacion();
+                           p.MostrarInformaciónProducto();
                         }
                         Console.Write("Introduzca el Id del producto a añadir: ");
                         int id = int.Parse(Console.ReadLine());
