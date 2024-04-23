@@ -10,10 +10,17 @@ namespace MaquinaVending
     internal class Program
     {
         static List <Producto> listaProductos;
+
+        static Usuario usuario;
         static void Main(string[] args)
         {
             listaProductos = new List <Producto>();
-            MaquinaVending maquinaVending = new MaquinaVending();
+            
+            int clave = 1234;
+            usuario = new Usuario(clave, listaProductos);
+            MaquinaVending maquinaVending = new MaquinaVending(usuario,listaProductos);
+
+
 
             Menu(maquinaVending);
            

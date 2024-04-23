@@ -13,7 +13,7 @@ namespace MaquinaVending
         public string Material {  get; set; }
 
 
-        public MaterialPrecioso(string nombre, int unidades, double preciounitario, string descripcion, double peso, string material) : base(nombre, unidades, preciounitario, descripcion)
+        public MaterialPrecioso(int id, string nombre, int unidades, double preciounitario, string descripcion, double peso, string material) : base(id, nombre, unidades, preciounitario, descripcion)
         {
             Peso = peso;
             Material = material;
