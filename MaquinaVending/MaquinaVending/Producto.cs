@@ -23,7 +23,7 @@ namespace MaquinaVending
             Descripcion = descripcion;
         }
 
-        public void MostrarInformación() { }
+        public virtual void MostrarInformación() { }
 
 
     }

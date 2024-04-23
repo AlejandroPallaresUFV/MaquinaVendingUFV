@@ -35,9 +35,33 @@ namespace MaquinaVending
             }
         }
 
-        public void MostrarInformación() 
+        public override void MostrarInformación() 
         {
-            
+            {//Mostrar los productos disponibles(ID, nombre, unidades, precio)
+                foreach (Producto p in listaProductos) {
+                    p.MostrarDetalles();
+                }
+                // Pedir al usuario que ingrese el ID del producto
+                Console.WriteLine("Ingrese el ID del producto:");
+                int p = int.Parse(Console.ReadLine());
+
+                // Buscar el producto por ID
+                Producto p = listaProductos.Find(x => x.Id == id);
+
+                // Mostrar la información del producto si existe
+                if (p != null) {
+                    Console.WriteLine($"Nombre: {p.Nombre}");
+                    Console.WriteLine($"Precio: {p.Precio}");
+                    Console.WriteLine($"Descripción: {p.Descripcion}");
+                    Console.WriteLine($"Cantidad disponible: {p.Unidades}");
+                    Console.WriteLine($"Tipo de producto: {p.Tipo}");
+                    Console.WriteLine($"Categoría: {p.Categoria}");
+                }
+                else {
+                    Console.WriteLine("El producto no existe.");
+                }
+            }
+
         }
 
         public void CargaIndividual() 
