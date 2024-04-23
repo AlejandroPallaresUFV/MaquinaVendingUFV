@@ -9,22 +9,22 @@ namespace MaquinaVending
 {
     internal class MaquinaVending
     {
-        protected List<Producto> listaProducto;
+        protected List<Producto> listaProductos;
         public Usuario Usuario { get; set; }    //Usuario que manejara las funciones
         public MaquinaVending(Usuario usuario, List <Producto> productos) 
         { 
         
             Usuario = usuario;
-            this.listaProducto = productos;
+            this.listaProductos = productos;
         }
 
-        public void ComprarProductos() 
+        public void ComprarProductos()
         {
             bool flag = false;
 
-            while (flag ==  false)
+            while (flag == false)
             {
-                foreach (Producto p in listaProducto)
+                foreach (Producto p in listaProductos)
                 {
                     p.MostrarInformación();
                 }
@@ -32,11 +32,7 @@ namespace MaquinaVending
                 Console.WriteLine("Introduce el Id del producto");
                 int id = int.Parse(Console.ReadLine());
                 Usuario.InsertarProducto(id);
-
-
-        public void ComprarProductos() 
-        {
-            
+            }
         }
 
         public void MostrarInformación() 
@@ -68,7 +64,7 @@ namespace MaquinaVending
                         {
                             if (id == p.Id)
                             {
-                                Console.WriteLine("Hay " + p.Unidades +
+                                Console.WriteLine("Hay " + p.Unidades + " de " + p.Nombre + ".");
                             }
                         }
                         
