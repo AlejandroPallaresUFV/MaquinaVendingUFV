@@ -49,9 +49,18 @@ namespace MaquinaVending
                 }
             }
 
-            Pago pago = new Pago();
+            if(Usuario.Carrito != null)
+            {
+                Pago pago = new Pago();
 
-            pago.Pagar();
+                pago.Pagar();
+            }
+            else
+            {
+                Console.WriteLine("No hay elementos en el carrito. Volviendo al menú...");
+                Thread.Sleep(1000);
+            }
+            
         }
 
         public  void MostrarInformacion() 
