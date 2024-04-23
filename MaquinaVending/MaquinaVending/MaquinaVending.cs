@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace MaquinaVending
 {
@@ -36,7 +37,7 @@ namespace MaquinaVending
                 Console.WriteLine("Quiere añadir otro producto? \n 1.Si\n 2.No");
                 int decision = int.Parse(Console.ReadLine());
 
-                if (decision == 0)
+                if (decision == 2)
                 {
                     flag = true;
                 }
@@ -63,10 +64,7 @@ namespace MaquinaVending
 
                 // Mostrar la información del producto si existe
                 if (p != null) {
-                    Console.WriteLine($"Nombre: {p.Id}");
-                    Console.WriteLine($"Nombre: {p.Nombre}");
-                    Console.WriteLine($"Cantidad disponible: {p.Unidades}");
-                    Console.WriteLine($"Precio: {p.PrecioUnitario}");
+                    p.MostrarInformacionExtensa();
                 }
                 else {
                     Console.WriteLine("El producto no existe.");
@@ -85,37 +83,41 @@ namespace MaquinaVending
                 Console.WriteLine("2. Añadir Nuevo Producto.");
                 Console.WriteLine("3. Volver.");
                 opcion = int.Parse(Console.ReadLine());
+                try {
 
-                switch(opcion) 
-                {
-                    case 1:
-                        foreach( Producto p in listaProductos)
-                        {
-                           p.MostrarInformaciónProducto();
-                        }
-                        Console.Write("Introduzca el Id del producto a añadir: ");
-                        int id = int.Parse(Console.ReadLine());
-                        foreach (Producto p in listaProductos)
-                        {
-                            if (id == p.Id)
-                            {
-                                Console.WriteLine("Hay " + p.Unidades + " de " + p.Nombre + ".");
+                    switch (opcion) {
+                        case 1:
+                            foreach (Producto p in listaProductos) {
+                                p.MostrarInformaciónProducto();
                             }
-                        }
-                        
-                        break;
-                    case 2:
+                            Console.Write("Introduzca el Id del producto a añadir: ");
+                            int id = int.Parse(Console.ReadLine());
+                            foreach (Producto p in listaProductos) {
+                                if (id == p.Id) {
+                                    Console.WriteLine("Hay " + p.Unidades + " de " + p.Nombre + ".");
+                                }
+                            }
 
-                        break;
-                    case 3: 
-                        Console.WriteLine("Saliendo...");
-                        break;
-                    default:
-                        Console.WriteLine("Opción Incorrecta");
-                        break;
+                            break;
+                        case 2:
+
+                            break;
+                        case 3:
+                            Console.WriteLine("Saliendo...");
+                            break;
+                        default:
+                            Console.WriteLine("Opción Incorrecta");
+                            break;
+                    }
+                }
+                catch (FormatException) {
+                    Console.WriteLine("Error: Opción inválida. Por favor, ingre un número válido.");
+                }
+                catch (Exception ex) {
+                    Console.WriteLine("Error de E/S: " + ex.Message);
                 }
 
-            }while (opcion != 3);
+            } while (opcion != 3);
         }
 
         public void CargaCompleta()

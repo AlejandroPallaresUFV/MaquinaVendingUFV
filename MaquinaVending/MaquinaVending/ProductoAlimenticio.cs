@@ -13,5 +13,9 @@ namespace MaquinaVending
         {
             InfoNutricional = infoNutricional;
         }
+        
+        public override string MostrarInformacionExtensa() {
+            return base.MostrarInformacionExtensa() + $"\nTipo de producto: Alimenticio\nInformacion nutricional: {InfoNutricional}";
+        }
     }
 }

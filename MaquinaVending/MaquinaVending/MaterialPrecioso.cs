@@ -18,6 +18,8 @@ namespace MaquinaVending
             Peso = peso;
             Material = material;
         }
-
+        public override string MostrarInformacionExtensa() {
+            return base.MostrarInformacionExtensa() + $"\nTipo de producto: Material Precioso\nInformacion adicional:\n-Peso (en gramos): {Peso}\n-Material:{Material}";
+        }
     }
 }

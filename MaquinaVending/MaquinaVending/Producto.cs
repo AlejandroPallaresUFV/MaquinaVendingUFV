@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,13 +24,13 @@ namespace MaquinaVending
             Descripcion = descripcion;
         }
 
-        public virtual void MostrarInformaciónProducto() { 
-            //AQUI IMPRIME ID NOMBRE UNIDADES Y PRECIO
+        public virtual string MostrarInformaciónProducto() {
+            return $"ID: {Id}\n Nombre: {Nombre}\nUnidades: {Unidades}\nPrecio: {PrecioUnitario}";
         }
 
-        public virtual void MostrarInformacionExtensa() {
-            //IMPRIME LA INFORMACION COMPLETA
-
+        public virtual string MostrarInformacionExtensa() {
+            return $"\n Nombre: {Nombre}\nPrecio: {PrecioUnitario}\nDescripción:{Descripcion}" +
+                $"\nCantidad disponible: {Unidades}";
         }
     }
 }
