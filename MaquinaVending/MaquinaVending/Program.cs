@@ -49,7 +49,7 @@ namespace MaquinaVending
                             maquinaVending.ComprarProductos();
                             break;
                         case 2: // Mostrar información del producto
-                            maquinaVending.MostrarInformación();
+                            maquinaVending.MostrarInformacion();
                             break;
                         case 3: // Carga individual de productos
                             maquinaVending.CargaCompleta();
