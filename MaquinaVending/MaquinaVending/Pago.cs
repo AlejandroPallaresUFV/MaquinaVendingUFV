@@ -80,6 +80,8 @@ namespace MaquinaVending
 
                     Console.WriteLine("Espere un momento...");
                     Thread.Sleep(5000);
+                    usuario.PrecioTotal = 0;
+
                     Console.WriteLine("Gracias por su compra!");
                     Thread.Sleep(3000);
                     break;
