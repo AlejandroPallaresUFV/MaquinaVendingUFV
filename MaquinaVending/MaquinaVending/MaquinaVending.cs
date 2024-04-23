@@ -26,7 +26,7 @@ namespace MaquinaVending
             {
                 foreach (Producto p in listaProductos)
                 {
-                    p.MostrarInformación();
+                    p.MostrarInformaciónProducto();
                 }
 
                 Console.WriteLine("Introduce el Id del producto");
@@ -35,27 +35,26 @@ namespace MaquinaVending
             }
         }
 
-        public override void MostrarInformación() 
+        public  void MostrarInformacion() 
         {
-            {//Mostrar los productos disponibles(ID, nombre, unidades, precio)
-                foreach (Producto p in listaProductos) {
-                    p.MostrarDetalles();
+            {  
+                //Mostrar los productos disponibles(ID, nombre, unidades, precio)
+                foreach (Producto prod in listaProductos) {
+                    prod.MostrarInformaciónProducto();
                 }
                 // Pedir al usuario que ingrese el ID del producto
                 Console.WriteLine("Ingrese el ID del producto:");
-                int p = int.Parse(Console.ReadLine());
+                int id = int.Parse(Console.ReadLine());
 
                 // Buscar el producto por ID
                 Producto p = listaProductos.Find(x => x.Id == id);
 
                 // Mostrar la información del producto si existe
                 if (p != null) {
+                    Console.WriteLine($"Nombre: {p.Id}");
                     Console.WriteLine($"Nombre: {p.Nombre}");
-                    Console.WriteLine($"Precio: {p.Precio}");
-                    Console.WriteLine($"Descripción: {p.Descripcion}");
                     Console.WriteLine($"Cantidad disponible: {p.Unidades}");
-                    Console.WriteLine($"Tipo de producto: {p.Tipo}");
-                    Console.WriteLine($"Categoría: {p.Categoria}");
+                    Console.WriteLine($"Precio: {p.PrecioUnitario}");
                 }
                 else {
                     Console.WriteLine("El producto no existe.");
