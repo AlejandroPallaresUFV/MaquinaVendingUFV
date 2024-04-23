@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,18 +33,9 @@ namespace MaquinaVending
                 int id = int.Parse(Console.ReadLine());
                 Usuario.InsertarProducto(id);
 
-                Console.WriteLine("Quiere introducir otro producto? \n Si = 1, No = 0");
-                int flagDecision = int.Parse(Console.ReadLine());
 
-                if(flagDecision == 0)
-                {
-                    flag = true;
-                }
-            }
-
-            Pago pago = new Pago(Usuario);
-
-            
+        public void ComprarProductos() 
+        {
             
         }
 
@@ -54,7 +46,45 @@ namespace MaquinaVending
 
         public void CargaIndividual() 
         {
-            
+            int opcion = 0;
+            do
+            {
+                Console.WriteLine("Qué desea hacer?");
+                Console.WriteLine("1. Añadir Existencias.");
+                Console.WriteLine("2. Añadir Nuevo Producto.");
+                Console.WriteLine("3. Volver.");
+                opcion = int.Parse(Console.ReadLine());
+
+                switch(opcion) 
+                {
+                    case 1:
+                        foreach( Producto p in listaProductos)
+                        {
+                           p.MostrarInformacion();
+                        }
+                        Console.Write("Introduzca el Id del producto a añadir: ");
+                        int id = int.Parse(Console.ReadLine());
+                        foreach (Producto p in listaProductos)
+                        {
+                            if (id == p.Id)
+                            {
+                                Console.WriteLine("Hay " + p.Unidades +
+                            }
+                        }
+                        
+                        break;
+                    case 2:
+
+                        break;
+                    case 3: 
+                        Console.WriteLine("Saliendo...");
+                        break;
+                    default:
+                        Console.WriteLine("Opción Incorrecta");
+                        break;
+                }
+
+            }while (opcion != 3);
         }
 
         public void CargaCompleta()
