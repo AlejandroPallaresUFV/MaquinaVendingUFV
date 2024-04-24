@@ -83,6 +83,8 @@ namespace MaquinaVending
                     Console.WriteLine("Se ha añadido el producto!");
                     break;
                 default:
+                    Console.WriteLine("Opción Inválida");
+                    break;
 
             }
         }
