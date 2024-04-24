@@ -34,13 +34,13 @@ namespace MaquinaVending
             do
             {
                 Console.WriteLine(" -------------------------------------");
-                Console.WriteLine("|        MAQUINA DE VENDING           |");
+                Console.WriteLine("|        MÁQUINA DE VENDING           |");
                 Console.WriteLine("|-------------------------------------|");
-                Console.WriteLine("|1. Comprar Productos                 |");
-                Console.WriteLine("|2. Mostrar información del producto  |");
-                Console.WriteLine("|3. Carga individual de productos     |");
-                Console.WriteLine("|4. Carga completa de productos       |");
-                Console.WriteLine("|5. Salir                             |");
+                Console.WriteLine("|1. Comprar Productos.                |");
+                Console.WriteLine("|2. Mostrar información del producto. |");
+                Console.WriteLine("|3. Carga individual de productos.    |");
+                Console.WriteLine("|4. Carga completa de productos.      |");
+                Console.WriteLine("|5. Salir.                            |");
                 Console.WriteLine(" -------------------------------------");
                 
 

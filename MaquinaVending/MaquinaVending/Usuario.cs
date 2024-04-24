@@ -54,38 +54,62 @@ namespace MaquinaVending
 
         public void CargarProducto()
         {
-            Console.WriteLine("---CARGAR PRODUCTO---");
-            Console.WriteLine("1. Material Precioso.");
-            Console.WriteLine("2. Producto Alimenticio.");
-            Console.WriteLine("3. Producto Electrónico.");
-            Console.WriteLine("4. Salir.");
-            Console.WriteLine("¿Qué tipo quiere añadir el producto?: ");
-            int opcion = int.Parse(Console.ReadLine());
 
-            switch (opcion)
+            Console.WriteLine(" -------------------------");
+            Console.WriteLine("|     CARGAR PRODUCTO     |");
+            Console.WriteLine("|-------------------------|");
+            Console.WriteLine("|1. Material Precioso.    |");
+            Console.WriteLine("|2. Producto Alimenticio. |");
+            Console.WriteLine("|3. Producto Electrónico. |");
+            Console.WriteLine("|4. Salir.                |");
+            Console.WriteLine(" -------------------------");
+
+            try
             {
-                case 1:
-                    MaterialPrecioso mp = new MaterialPrecioso(listaProductos.Count);
-                    mp.SolicitarDetalles();
-                    listaProductos.Add(mp);
-                    Console.WriteLine("Se ha añadido el producto!");
-                    break;
-                case 2:
-                    ProductoAlimenticio pa = new ProductoAlimenticio(listaProductos.Count);
-                    pa.SolicitarDetalles();
-                    listaProductos.Add(pa);
-                    Console.WriteLine("Se ha añadido el producto!");
-                    break;
-                case 3:
-                    ProductoElectronico pe = new ProductoElectronico(listaProductos.Count);
-                    pe.SolicitarDetalles();
-                    listaProductos.Add(pe);
-                    Console.WriteLine("Se ha añadido el producto!");
-                    break;
-                default:
-                    Console.WriteLine("Opción Inválida");
-                    break;
+                Console.WriteLine("Opción: ");
+                int opcion = int.Parse(Console.ReadLine());
+                Console.Clear();
 
+                switch (opcion)
+                {
+
+
+                    case 1:
+                        Console.WriteLine("Introduciendo Material Precioso...");
+                        MaterialPrecioso mp = new MaterialPrecioso(listaProductos.Count);
+                        mp.SolicitarDetalles();
+                        listaProductos.Add(mp);
+                        Console.WriteLine("SE HA AÑADIDO EL PRODUCTO!!!");
+                        Console.Clear();
+                        break;
+                    case 2:
+                        Console.WriteLine("Introduciendo Producto Alimenticio...");
+                        ProductoAlimenticio pa = new ProductoAlimenticio(listaProductos.Count);
+                        pa.SolicitarDetalles();
+                        listaProductos.Add(pa);
+                        Console.WriteLine("SE HA AÑADIDO EL PRODUCTO!!!");
+                        Console.Clear();
+                        break;
+                    case 3:
+                        Console.WriteLine("Introduciendo Producto Electónico...");
+                        ProductoElectronico pe = new ProductoElectronico(listaProductos.Count);
+                        pe.SolicitarDetalles();
+                        listaProductos.Add(pe);
+                        Console.WriteLine("SE HA AÑADIDO EL PRODUCTO!!!");
+                        Console.Clear();
+                        break;
+                    default:
+                        Console.WriteLine("Opción Inválida");
+                        break;
+                }
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Error: Dato no válido. Por favor, ingrese un dato válido.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
             }
         }
     }

@@ -89,12 +89,18 @@ namespace MaquinaVending
             int opcion = 0;
             do
             {
-                Console.WriteLine("Qué desea hacer?");
-                Console.WriteLine("1. Añadir Existencias.");
-                Console.WriteLine("2. Añadir Nuevo Producto.");
-                Console.WriteLine("3. Volver.");
-                opcion = int.Parse(Console.ReadLine());
+                Console.WriteLine(" --------------------------");
+                Console.WriteLine("|     CARGAR PRODUCTOS     |");
+                Console.WriteLine("|--------------------------|");
+                Console.WriteLine("|1. Añadir Existencias.    |");
+                Console.WriteLine("|2. Añadir Nuevo Producto. |");
+                Console.WriteLine("|3. Volver.                |");
+                Console.WriteLine(" --------------------------");
+
                 try {
+                    Console.WriteLine("Opción: ");
+                    opcion = int.Parse(Console.ReadLine());
+                    Console.Clear();
 
                     switch (opcion) {
                         case 1:
