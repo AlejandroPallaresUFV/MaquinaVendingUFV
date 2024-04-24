@@ -13,6 +13,8 @@ namespace MaquinaVending
         protected List<Producto> listaProductos;
         public string TextoSeleccionado { get; set; } = "example_vending_file_practical_work_i.csv";
         public Usuario Usuario { get; set; }    //Usuario que manejara las funciones
+        public List<Producto> Carrito { get; set; }
+        public double PrecioTotal { get; set; }
 
 
         public MaquinaVending(Usuario usuario, List <Producto> productos) 
@@ -34,7 +36,18 @@ namespace MaquinaVending
                     p.MostrarInformaciónProducto();
                 }
 
-                Usuario.InsertarProducto();
+                Producto c = Usuario.ElegirProducto();
+
+                if (c != null)
+                {
+                    Carrito.Add(c);
+                    PrecioTotal = PrecioTotal + c.PrecioUnitario;
+                    Console.WriteLine("Elemento Añadido!");
+                }
+                else
+                {
+                    Console.WriteLine("Carrito vacío");
+                }
 
                 Console.WriteLine("Quiere añadir otro producto? \n 1.Si\n 2.No");
                 int decision = int.Parse(Console.ReadLine());
@@ -45,11 +58,11 @@ namespace MaquinaVending
                 }
             }
 
-            if(Usuario.Carrito != null)
+            if(Carrito != null)
             {
                 Pago pago = new Pago();
 
-                pago.Pagar();
+                pago.Pagar(Carrito);
             }
             else
             {
@@ -66,13 +79,9 @@ namespace MaquinaVending
                 foreach (Producto prod in listaProductos) {
                     prod.MostrarInformaciónProducto();
                 }
-                // Pedir al usuario que ingrese el ID del producto
-                Console.WriteLine("Ingrese el ID del producto:");
-                int id = int.Parse(Console.ReadLine());
 
                 // Buscar el producto por ID
-                Producto p = listaProductos.Find(x => x.Id == id);
-
+                Producto p = Usuario.ElegirProducto();
                 // Mostrar la información del producto si existe
                 if (p != null) {
                     p.MostrarInformacionExtensa();

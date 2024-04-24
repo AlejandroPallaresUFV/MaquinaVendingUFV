@@ -11,8 +11,7 @@ namespace MaquinaVending
 
         public int Clave { get; set; }
         protected List<Producto> listaProductos;
-        public List<Producto> Carrito { get; set; }
-        public double PrecioTotal { get; set; }
+        
 
         public Usuario() { }
 
@@ -22,7 +21,7 @@ namespace MaquinaVending
             this.listaProductos = productos;
         }  
 
-        public void InsertarProducto()
+        public Producto ElegirProducto()
         {
 
             Console.WriteLine("Introduce el Id del producto");
@@ -30,16 +29,7 @@ namespace MaquinaVending
 
             Producto c = listaProductos.Find(x => x.Id == id);
 
-            if (c != null)
-            {
-                Carrito.Add(c);
-                PrecioTotal = PrecioTotal + c.PrecioUnitario;
-                Console.WriteLine("Elemento Añadido!");
-            }
-            else
-            {
-                Console.WriteLine("Carrito vacío");
-            }
+            return c;
         }
 
         public string InsertarNombreArchivo()
