@@ -98,7 +98,7 @@ namespace MaquinaVending
 
                     switch (opcion) {
                         case 1:
-                            bool exito = false;
+                            bool exito  = false;
                             foreach (Producto p in listaProductos) {
                                 p.MostrarInformaciónProducto();
                             }
