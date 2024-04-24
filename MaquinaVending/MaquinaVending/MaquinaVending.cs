@@ -83,14 +83,14 @@ namespace MaquinaVending
             {  
                 //Mostrar los productos disponibles(ID, nombre, unidades, precio)
                 foreach (Producto prod in listaProductos) {
-                    prod.MostrarInformaciónProducto();
+                    Console.WriteLine(prod.MostrarInformaciónProducto());
                 }
 
                 // Buscar el producto por ID
                 Producto p = Usuario.ElegirProducto();
                 // Mostrar la información del producto si existe
                 if (p != null) {
-                    p.MostrarInformacionExtensa();
+                    Console.WriteLine(p.MostrarInformacionExtensa());
                 }
                 else {
                     Console.WriteLine("El producto no existe.");
@@ -198,7 +198,7 @@ namespace MaquinaVending
             bool exito = false;
             foreach (Producto p in listaProductos)
             {
-                p.MostrarInformaciónProducto();
+                Console.WriteLine(p.MostrarInformaciónProducto());
             }
             Console.Write("Introduzca el Id del producto a añadir: ");
             int id = int.Parse(Console.ReadLine());
