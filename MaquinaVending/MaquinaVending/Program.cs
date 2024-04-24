@@ -33,15 +33,22 @@ namespace MaquinaVending
 
             do
             {
-                Console.WriteLine("1. Comprar Productos");
-                Console.WriteLine("2. Mostrar información del producto");
-                Console.WriteLine("3. Carga individual de productos");
-                Console.WriteLine("4. Carga completa de productos");
-                Console.WriteLine("5. Salir");
-                Console.Write("Opción: ");
-                try
-                {
+                Console.WriteLine(" -------------------------------------");
+                Console.WriteLine("|        MAQUINA DE VENDING           |");
+                Console.WriteLine("|-------------------------------------|");
+                Console.WriteLine("|1. Comprar Productos                 |");
+                Console.WriteLine("|2. Mostrar información del producto  |");
+                Console.WriteLine("|3. Carga individual de productos     |");
+                Console.WriteLine("|4. Carga completa de productos       |");
+                Console.WriteLine("|5. Salir                             |");
+                Console.WriteLine(" -------------------------------------");
+                
+
+                try {
+
+                    Console.Write("Opción: ");
                     opcion = int.Parse(Console.ReadLine());
+                    Console.Clear();
 
                     switch (opcion)
                     {
