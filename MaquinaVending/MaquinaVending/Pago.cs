@@ -31,36 +31,33 @@ namespace MaquinaVending
                     do 
                     {
                         Console.WriteLine($"Pago restante:{usuario.PrecioTotal} euros");
-                        Console.WriteLine("Introduce una moneda (valor en euros)");
-                        double dinero= int.Parse(Console.ReadLine());
+                        Console.WriteLine("Introduce una moneda (valor centimos)");
+                        int dinero= int.Parse(Console.ReadLine());
                         switch (dinero)
                         {
-                            case 0.01:
+                            case 1:
                                 usuario.PrecioTotal = usuario.PrecioTotal - 0.01;
                                 break;
-                            case 0.02:
+                            case 2:
                                 usuario.PrecioTotal = usuario.PrecioTotal - 0.02;
                                 break;
-                            case 0.05:
+                            case 5:
                                 usuario.PrecioTotal = usuario.PrecioTotal - 0.05;
                                 break;
-                            case 0.10:
+                            case 10:
                                 usuario.PrecioTotal = usuario.PrecioTotal - 0.10;
                                 break;
-                            case 0.20:
+                            case 20:
                                 usuario.PrecioTotal = usuario.PrecioTotal - 0.20;
                                 break;
-                            case 0.50:
+                            case 50:
                                 usuario.PrecioTotal = usuario.PrecioTotal - 0.50;
                                 break;
-                            case 1.00:
+                            case 100:
                                 usuario.PrecioTotal = usuario.PrecioTotal - 1;
                                 break;
-                            case 2.00:
+                            case 200:
                                 usuario.PrecioTotal = usuario.PrecioTotal - 2;
-                                break;
-                            default:
-                                Console.WriteLine("Introduce una moneda válida.");
                                 break;
                         }
                         Console.WriteLine("Calculando...");
@@ -69,7 +66,7 @@ namespace MaquinaVending
 
                     } while(usuario.PrecioTotal > 0);
 
-                    Console.WriteLine($"Cambio: {(-1)*usuario.PrecioTotal}\n Gracias por su compra!");
+                    Console.WriteLine($"Cambio: {usuario.PrecioTotal}\n Gracias por su compra!");
                     Thread.Sleep(3000);
 
                     break;

@@ -54,10 +54,13 @@ namespace MaquinaVending
 
         public void CargarProducto()
         {
-            Console.WriteLine("De que tipo quiere añadir el producto?\n1.Material Precioso\n2.Producto Alimenticio\n3.Producto Electronico");
+            Console.WriteLine("---CARGAR PRODUCTO---");
+            Console.WriteLine("1. Material Precioso.");
+            Console.WriteLine("2. Producto Alimenticio.");
+            Console.WriteLine("3. Producto Electrónico.");
+            Console.WriteLine("4. Salir.");
+            Console.WriteLine("¿Qué tipo quiere añadir el producto?: ");
             int opcion = int.Parse(Console.ReadLine());
-
-            
 
             switch (opcion)
             {
@@ -67,6 +70,20 @@ namespace MaquinaVending
                     listaProductos.Add(mp);
                     Console.WriteLine("Se ha añadido el producto!");
                     break;
+                case 2:
+                    ProductoAlimenticio pa = new ProductoAlimenticio(listaProductos.Count);
+                    pa.SolicitarDetalles();
+                    listaProductos.Add(pa);
+                    Console.WriteLine("Se ha añadido el producto!");
+                    break;
+                case 3:
+                    ProductoElectronico pe = new ProductoElectronico(listaProductos.Count);
+                    pe.SolicitarDetalles();
+                    listaProductos.Add(pe);
+                    Console.WriteLine("Se ha añadido el producto!");
+                    break;
+                default:
+
             }
         }
     }
