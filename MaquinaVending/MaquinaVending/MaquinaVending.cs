@@ -120,7 +120,7 @@ namespace MaquinaVending
                                 
                             }
 
-                            if(exito = false)
+                            if(exito == false)
                             {
                                 Console.WriteLine("Producto no encontrado.");
                             }
