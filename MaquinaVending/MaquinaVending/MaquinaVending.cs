@@ -20,6 +20,8 @@ namespace MaquinaVending
         public MaquinaVending(Usuario usuario, List <Producto> productos) 
         { 
         
+            Carrito = new List<Producto>();
+
             Usuario = usuario;
             this.listaProductos = productos;
         }
@@ -35,6 +37,7 @@ namespace MaquinaVending
                 {
                     Console.WriteLine(p.MostrarInformaciónProducto());
                 }
+
 
                 Producto c = Usuario.ElegirProducto();
 
