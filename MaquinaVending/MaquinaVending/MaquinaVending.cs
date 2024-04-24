@@ -49,7 +49,7 @@ namespace MaquinaVending
                 }
                 else
                 {
-                    Console.WriteLine("Carrito vacío");
+                    Console.WriteLine("Producto no encontrado.");
                 }
 
                 Console.WriteLine("Quiere añadir otro producto? \n 1.Si\n 2.No");
@@ -61,7 +61,7 @@ namespace MaquinaVending
                 }
             }
 
-            if(Carrito != null)
+            if(!Carrito.Any())
             {
                 Pago pago = new Pago();
 
