@@ -107,7 +107,7 @@ namespace MaquinaVending
                             foreach (Producto p in listaProductos) {
                                 if (id == p.Id) {
                                     Console.WriteLine("Hay " + p.Unidades + " de " + p.Nombre + ".");
-                                    Console.WriteLine("Cuantas unidades desea añadir?");
+                                    Console.WriteLine("Cuantas unidades desea añadir?: ");
                                     int cantidad =  int.Parse(Console.ReadLine());
 
                                     p.Unidades = p.Unidades + cantidad;
@@ -119,7 +119,6 @@ namespace MaquinaVending
                                 }
                                 
                             }
-
                             if(exito = false)
                             {
                                 Console.WriteLine("Producto no encontrado.");
