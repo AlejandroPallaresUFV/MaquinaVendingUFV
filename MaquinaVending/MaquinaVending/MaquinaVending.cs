@@ -36,9 +36,7 @@ namespace MaquinaVending
                     p.MostrarInformaciónProducto();
                 }
 
-                Console.WriteLine("Introduce el Id del producto");
-                int id = int.Parse(Console.ReadLine());
-                Usuario.InsertarProducto(id);
+                Usuario.InsertarProducto();
 
                 Console.WriteLine("Quiere añadir otro producto? \n 1.Si\n 2.No");
                 int decision = int.Parse(Console.ReadLine());
@@ -102,6 +100,7 @@ namespace MaquinaVending
 
                     switch (opcion) {
                         case 1:
+                            bool exito = false;
                             foreach (Producto p in listaProductos) {
                                 p.MostrarInformaciónProducto();
                             }
@@ -110,11 +109,29 @@ namespace MaquinaVending
                             foreach (Producto p in listaProductos) {
                                 if (id == p.Id) {
                                     Console.WriteLine("Hay " + p.Unidades + " de " + p.Nombre + ".");
+                                    Console.WriteLine("Cuantas unidades desea añadir?");
+                                    int cantidad =  int.Parse(Console.ReadLine());
+
+                                    p.Unidades = p.Unidades + cantidad;
+
+                                    exito = true;
+
+                                    Console.WriteLine("Producto modificado!");
+
                                 }
+                                
+                            }
+
+                            if(exito = false)
+                            {
+                                Console.WriteLine("Producto no encontrado.");
                             }
 
                             break;
                         case 2:
+
+                            Usuario.CargarProducto();
+
 
                             break;
                         case 3:
@@ -133,6 +150,9 @@ namespace MaquinaVending
                 }
 
             } while (opcion != 3);
+
+            Console.WriteLine("Volviendo al menú...");
+            Thread.Sleep(1000);
         }
 
         public void CargaCompleta()

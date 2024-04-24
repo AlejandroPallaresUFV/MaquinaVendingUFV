@@ -9,6 +9,8 @@ namespace MaquinaVending
     internal class ProductoAlimenticio : Producto
     {
         string InfoNutricional {  get; set; }
+
+        public ProductoAlimenticio(int id) : base(id) { }
         public ProductoAlimenticio(int id, string nombre, int unidades, double preciounitario, string descripcion, string infoNutricional) : base(id, nombre, unidades, preciounitario, descripcion)
         {
             InfoNutricional = infoNutricional;
@@ -16,6 +18,12 @@ namespace MaquinaVending
         
         public override string MostrarInformacionExtensa() {
             return base.MostrarInformacionExtensa() + $"\nTipo de producto: Alimenticio\nInformacion nutricional: {InfoNutricional}";
+        }
+        public override void SolicitarDetalles()
+        {
+            base.SolicitarDetalles();
+            Console.WriteLine("Peso");
+            InfoNutricional = Console.ReadLine();
         }
     }
 }

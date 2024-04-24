@@ -22,9 +22,11 @@ namespace MaquinaVending
             this.listaProductos = productos;
         }  
 
-        public void InsertarProducto(int id)
+        public void InsertarProducto()
         {
 
+            Console.WriteLine("Introduce el Id del producto");
+            int id = int.Parse(Console.ReadLine());
 
             Producto c = listaProductos.Find(x => x.Id == id);
 
@@ -36,7 +38,7 @@ namespace MaquinaVending
             }
             else
             {
-                Console.WriteLine("Elemento no encontrado.");
+                Console.WriteLine("Carrito vacío");
             }
         }
 
@@ -50,9 +52,22 @@ namespace MaquinaVending
             return texto;
         }
 
-        public void CargarProductos()
+        public void CargarProducto()
         {
+            Console.WriteLine("De que tipo quiere añadir el producto?\n1.Material Precioso\n2.Producto Alimenticio\n3.Producto Electronico");
+            int opcion = int.Parse(Console.ReadLine());
 
+            
+
+            switch (opcion)
+            {
+                case 1:
+                    MaterialPrecioso mp = new MaterialPrecioso(listaProductos.Count);
+                    mp.SolicitarDetalles();
+                    listaProductos.Add(mp);
+                    Console.WriteLine("Se ha añadido el producto!");
+                    break;
+            }
         }
     }
 }

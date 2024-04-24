@@ -15,6 +15,11 @@ namespace MaquinaVending
         public double PrecioUnitario { get; set; }
         public string Descripcion {  get; set; }
 
+        public Producto (int id)
+        {
+            id = Id;
+        }
+
         public Producto(int id, string nombre, int unidades, double preciounitario, string descripcion) 
         {
             Id = id;
@@ -31,6 +36,19 @@ namespace MaquinaVending
         public virtual string MostrarInformacionExtensa() {
             return $"\n Nombre: {Nombre}\nPrecio: {PrecioUnitario}\nDescripción:{Descripcion}" +
                 $"\nCantidad disponible: {Unidades}";
+        }
+
+        public virtual void SolicitarDetalles()
+        {
+            Console.WriteLine("Nombre");
+            Nombre = Console.ReadLine();
+            Console.WriteLine("Unidades");
+            Unidades = int.Parse(Console.ReadLine());
+            Console.WriteLine("Precio unitario:");
+            PrecioUnitario = int.Parse(Console.ReadLine());
+            Console.WriteLine("Descripcion:");
+            Descripcion = Console.ReadLine();
+
         }
     }
 }
