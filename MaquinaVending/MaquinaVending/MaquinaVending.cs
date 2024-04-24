@@ -33,14 +33,14 @@ namespace MaquinaVending
             {
                 foreach (Producto p in listaProductos)
                 {
-                    p.MostrarInformaciónProducto();
+                    Console.WriteLine(p.MostrarInformaciónProducto());
                 }
 
                 Producto c = Usuario.ElegirProducto();
 
                 if (c != null)
                 {
-                    Carrito.Add(c);
+                    Carrito.Add(c); //Da error
                     PrecioTotal = PrecioTotal + c.PrecioUnitario;
                     Console.WriteLine("Elemento Añadido!");
                 }
@@ -223,23 +223,23 @@ namespace MaquinaVending
                 int id = listaProductos.Count;
                 string nombre; int unidades; double preciounitario; 
                 string descripcion; string infoNutricional; string materiales;
-                bool pilas; bool precargado; double peso;
+                bool pilas; bool precargado; string peso;
 
                 nombre = values[1];
                 unidades = int.Parse(values[2]);
-                preciounitario = int.Parse(values[3]);
+                preciounitario = double.Parse(values[3]);
                 descripcion = values[4];
 
                 if (int.Parse(values[0]) == 1)
                 {
                     materiales = values[5];
-                    peso = int.Parse(values[6]);
+                    peso = values[6];
 
                     MaterialPrecioso mp = new MaterialPrecioso(id, nombre,unidades,preciounitario,descripcion, peso, materiales);
                     listaProductos.Add(mp);
 
                 }
-                else if (int.Parse(values[1]) == 2)
+                else if (int.Parse(values[0]) == 2)
                 {
                     infoNutricional = values[7];
 
@@ -250,14 +250,23 @@ namespace MaquinaVending
                 else
                 {
                     materiales = values[5];
-                    pilas = bool.Parse(values[8]);
-                    precargado = bool.Parse(values[9]);
+
+                    if (int.Parse(values[8]) == 1)
+                    {
+                        pilas = true;
+                    }else { pilas = false; }
+
+                    if (int.Parse(values[9]) == 1)
+                    {
+                        precargado = true;
+                    }
+                    else { precargado = false; }
 
                     ProductoElectronico pe = new ProductoElectronico(id, nombre, unidades, preciounitario, descripcion, materiales,pilas, precargado);
                     listaProductos.Add(pe);
                 }
 
-                Console.ReadLine();
+                //Console.ReadLine();
             }
 
             sr.Close();

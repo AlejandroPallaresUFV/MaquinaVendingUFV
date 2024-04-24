@@ -9,11 +9,11 @@ namespace MaquinaVending
     internal class MaterialPrecioso : Producto
     {
         
-        public double Peso {  get; set; }  
+        public string Peso {  get; set; }  
         public string Material {  get; set; }
 
         public MaterialPrecioso(int id) : base(id) { }  
-        public MaterialPrecioso(int id, string nombre, int unidades, double preciounitario, string descripcion, double peso, string material) : base(id, nombre, unidades, preciounitario, descripcion)
+        public MaterialPrecioso(int id, string nombre, int unidades, double preciounitario, string descripcion, string peso, string material) : base(id, nombre, unidades, preciounitario, descripcion)
         {
             Peso = peso;
             Material = material;
@@ -28,7 +28,7 @@ namespace MaquinaVending
             try
             {
                 Console.WriteLine("Peso");
-                Peso = int.Parse(Console.ReadLine());
+                Peso = Console.ReadLine();
                 Console.WriteLine("Material");
                 Material = Console.ReadLine();
             }

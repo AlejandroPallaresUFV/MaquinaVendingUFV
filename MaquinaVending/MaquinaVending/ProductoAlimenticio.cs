@@ -25,7 +25,7 @@ namespace MaquinaVending
             base.SolicitarDetalles();
             try
             {
-                Console.WriteLine("Peso");
+                Console.WriteLine("Info Nutricional:");
                 InfoNutricional = Console.ReadLine();
             }
             catch (FormatException)
