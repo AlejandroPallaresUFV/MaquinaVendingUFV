@@ -21,9 +21,21 @@ namespace MaquinaVending
         }
         public override void SolicitarDetalles()
         {
+
             base.SolicitarDetalles();
-            Console.WriteLine("Peso");
-            InfoNutricional = Console.ReadLine();
+            try
+            {
+                Console.WriteLine("Peso");
+                InfoNutricional = Console.ReadLine();
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Error: Dato no válido. Por favor, ingrese un dato válido.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
         }
     }
 }

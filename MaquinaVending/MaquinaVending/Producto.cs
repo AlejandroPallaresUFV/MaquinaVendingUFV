@@ -40,15 +40,26 @@ namespace MaquinaVending
 
         public virtual void SolicitarDetalles()
         {
-            Console.WriteLine("Nombre");
-            Nombre = Console.ReadLine();
-            Console.WriteLine("Unidades");
-            Unidades = int.Parse(Console.ReadLine());
-            Console.WriteLine("Precio unitario:");
-            PrecioUnitario = int.Parse(Console.ReadLine());
-            Console.WriteLine("Descripcion:");
-            Descripcion = Console.ReadLine();
+            try
+            {
+                Console.WriteLine("Nombre");
+                Nombre = Console.ReadLine();
+                Console.WriteLine("Unidades");
+                Unidades = int.Parse(Console.ReadLine());
+                Console.WriteLine("Precio unitario:");
+                PrecioUnitario = int.Parse(Console.ReadLine());
+                Console.WriteLine("Descripcion:");
+                Descripcion = Console.ReadLine();
 
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Error: Dato no válido. Por favor, ingrese un dato válido.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
         }
     }
 }

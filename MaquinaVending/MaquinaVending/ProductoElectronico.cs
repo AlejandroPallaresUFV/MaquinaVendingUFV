@@ -25,12 +25,23 @@ namespace MaquinaVending
         public override void SolicitarDetalles()
         {
             base.SolicitarDetalles();
-            Console.WriteLine("Tiene Pilas? 1.Si 0.No");
-            Pilas = bool.Parse(Console.ReadLine());
-            Console.WriteLine("Material");
-            Materiales = Console.ReadLine();
-            Console.WriteLine("Esta Precargado? 1.Si 0.No");
-            Precargado = bool.Parse(Console.ReadLine());
+            try
+            {
+                Console.WriteLine("Tiene Pilas? 1.Si 0.No");
+                Pilas = bool.Parse(Console.ReadLine());
+                Console.WriteLine("Material");
+                Materiales = Console.ReadLine();
+                Console.WriteLine("Esta Precargado? 1.Si 0.No");
+                Precargado = bool.Parse(Console.ReadLine());
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Error: Dato no válido. Por favor, ingrese un dato válido.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
         }
     }
 }
