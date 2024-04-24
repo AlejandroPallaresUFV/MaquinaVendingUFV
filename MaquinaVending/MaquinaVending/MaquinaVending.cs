@@ -16,12 +16,13 @@ namespace MaquinaVending
         public List<Producto> Carrito { get; set; }
         public double PrecioTotal { get; set; }
 
-        int contador = 0;
+        int Contador {  get; set; }
 
         public MaquinaVending(Usuario usuario, List <Producto> productos) 
         { 
         
             Carrito = new List<Producto>();
+            Contador = 0;
 
             Usuario = usuario;
             this.listaProductos = productos;
@@ -47,7 +48,7 @@ namespace MaquinaVending
                     Carrito.Add(c); 
                     PrecioTotal = PrecioTotal + c.PrecioUnitario;
                     Console.WriteLine("Elemento Añadido!");
-                    contador++;
+                    Contador++;
                 }
                 else
                 {
@@ -63,7 +64,7 @@ namespace MaquinaVending
                 }
             }
 
-            if(contador!=0) //!Carrito.Any()
+            if(Contador!=0) //!Carrito.Any()
             {
                 Pago pago = new Pago();
 
@@ -120,38 +121,13 @@ namespace MaquinaVending
 
                     switch (opcion) {
                         case 1:
-                            bool exito  = false;
-                            foreach (Producto p in listaProductos) {
-                                p.MostrarInformaciónProducto();
-                            }
-                            Console.Write("Introduzca el Id del producto a añadir: ");
-                            int id = int.Parse(Console.ReadLine());
-                            foreach (Producto p in listaProductos) {
-                                if (id == p.Id) {
-                                    Console.WriteLine("Hay " + p.Unidades + " de " + p.Nombre + ".");
-                                    Console.WriteLine("Cuantas unidades desea añadir?: ");
-                                    int cantidad =  int.Parse(Console.ReadLine());
 
-                                    p.Unidades = p.Unidades + cantidad;
-
-                                    exito = true;
-
-                                    Console.WriteLine("Producto modificado!");
-
-                                }
-                                
-                            }
-                            if(exito == false)
-                            {
-                                Console.WriteLine("Producto no encontrado.");
-                            }
+                            CambiarCantidades();
 
                             break;
                         case 2:
 
                             CargarProducto();
-
-
 
                             break;
                         case 3:
@@ -217,69 +193,101 @@ namespace MaquinaVending
 
 
 
+        public void CambiarCantidades()
+        {
+            bool exito = false;
+            foreach (Producto p in listaProductos)
+            {
+                p.MostrarInformaciónProducto();
+            }
+            Console.Write("Introduzca el Id del producto a añadir: ");
+            int id = int.Parse(Console.ReadLine());
+            foreach (Producto p in listaProductos)
+            {
+                if (id == p.Id)
+                {
+                    Console.WriteLine("Hay " + p.Unidades + " de " + p.Nombre + ".");
+                    Console.WriteLine("Cuantas unidades desea añadir?: ");
+                    int cantidad = int.Parse(Console.ReadLine());
+
+                    p.Unidades = p.Unidades + cantidad;
+
+                    exito = true;
+
+                    Console.WriteLine("Producto modificado!");
+
+                }
+
+            }
+            if (exito == false)
+            {
+                Console.WriteLine("Producto no encontrado.");
+            }
+        }
 
         public void CargarProducto() 
         {
 
+            if (Contador <12) {
+                Console.WriteLine(" -------------------------");
+                Console.WriteLine("|     CARGAR PRODUCTO     |");
+                Console.WriteLine("|-------------------------|");
+                Console.WriteLine("|1. Material Precioso.    |");
+                Console.WriteLine("|2. Producto Alimenticio. |");
+                Console.WriteLine("|3. Producto Electrónico. |");
+                Console.WriteLine("|4. Salir.                |");
+                Console.WriteLine(" -------------------------");
 
-            Console.WriteLine(" -------------------------");
-            Console.WriteLine("|     CARGAR PRODUCTO     |");
-            Console.WriteLine("|-------------------------|");
-            Console.WriteLine("|1. Material Precioso.    |");
-            Console.WriteLine("|2. Producto Alimenticio. |");
-            Console.WriteLine("|3. Producto Electrónico. |");
-            Console.WriteLine("|4. Salir.                |");
-            Console.WriteLine(" -------------------------");
-
-            try
-            {
-                Console.WriteLine("Opción: ");
-                int opcion = int.Parse(Console.ReadLine());
-                Console.Clear();
-
-                switch (opcion)
+                try
                 {
+                    Console.WriteLine("Opción: ");
+                    int opcion = int.Parse(Console.ReadLine());
+                    Console.Clear();
+
+                    switch (opcion)
+                    {
 
 
-                    case 1:
-                        Console.WriteLine("Introduciendo Material Precioso...");
-                        MaterialPrecioso mp = new MaterialPrecioso(listaProductos.Count);
-                        mp.SolicitarDetalles();
-                        listaProductos.Add(mp);
-                        Console.WriteLine("SE HA AÑADIDO EL PRODUCTO!!!");
-                        Thread.Sleep(1000);
-                        Console.Clear();
-                        break;
-                    case 2:
-                        Console.WriteLine("Introduciendo Producto Alimenticio...");
-                        ProductoAlimenticio pa = new ProductoAlimenticio(listaProductos.Count);
-                        pa.SolicitarDetalles();
-                        listaProductos.Add(pa);
-                        Console.WriteLine("SE HA AÑADIDO EL PRODUCTO!!!");
-                        Thread.Sleep(1000);
-                        Console.Clear();
-                        break;
-                    case 3:
-                        Console.WriteLine("Introduciendo Producto Electónico...");
-                        ProductoElectronico pe = new ProductoElectronico(listaProductos.Count);
-                        pe.SolicitarDetalles();
-                        listaProductos.Add(pe);
-                        Console.WriteLine("SE HA AÑADIDO EL PRODUCTO!!!");
-                        Thread.Sleep(1000);
-                        Console.Clear();
-                        break;
-                    default:
-                        Console.WriteLine("Opción Inválida");
-                        break;
+                        case 1:
+                            Console.WriteLine("Introduciendo Material Precioso...");
+                            MaterialPrecioso mp = new MaterialPrecioso(listaProductos.Count);
+                            mp.SolicitarDetalles();
+                            listaProductos.Add(mp);
+                            Console.WriteLine("SE HA AÑADIDO EL PRODUCTO!!!");
+                            Thread.Sleep(1000);
+                            Console.Clear();
+                            break;
+                        case 2:
+                            Console.WriteLine("Introduciendo Producto Alimenticio...");
+                            ProductoAlimenticio pa = new ProductoAlimenticio(listaProductos.Count);
+                            pa.SolicitarDetalles();
+                            listaProductos.Add(pa);
+                            Console.WriteLine("SE HA AÑADIDO EL PRODUCTO!!!");
+                            Thread.Sleep(1000);
+                            Console.Clear();
+                            break;
+                        case 3:
+                            Console.WriteLine("Introduciendo Producto Electónico...");
+                            ProductoElectronico pe = new ProductoElectronico(listaProductos.Count);
+                            pe.SolicitarDetalles();
+                            listaProductos.Add(pe);
+                            Console.WriteLine("SE HA AÑADIDO EL PRODUCTO!!!");
+                            Thread.Sleep(1000);
+                            Console.Clear();
+                            break;
+                        default:
+                            Console.WriteLine("Opción Inválida");
+                            break;
+                    }
                 }
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("Error: Dato no válido. Por favor, ingrese un dato válido.");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error: " + ex.Message);
+                catch (FormatException)
+                {
+                    Console.WriteLine("Error: Dato no válido. Por favor, ingrese un dato válido.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                }
             }
         }
 
@@ -308,40 +316,45 @@ namespace MaquinaVending
                 preciounitario = double.Parse(values[3]);
                 descripcion = values[4];
 
-                if (int.Parse(values[0]) == 1)
+                if (Contador < 12)
                 {
-                    materiales = values[5];
-                    peso = values[6];
 
-                    MaterialPrecioso mp = new MaterialPrecioso(id, nombre,unidades,preciounitario,descripcion, peso, materiales);
-                    listaProductos.Add(mp);
-
-                }
-                else if (int.Parse(values[0]) == 2)
-                {
-                    infoNutricional = values[7];
-
-                    ProductoAlimenticio pa = new ProductoAlimenticio(id, nombre, unidades, preciounitario, descripcion, infoNutricional);
-                    listaProductos.Add(pa);
-
-                }
-                else
-                {
-                    materiales = values[5];
-
-                    if (int.Parse(values[8]) == 1)
+                    if (int.Parse(values[0]) == 1)
                     {
-                        pilas = true;
-                    }else { pilas = false; }
+                        materiales = values[5];
+                        peso = values[6];
 
-                    if (int.Parse(values[9]) == 1)
-                    {
-                        precargado = true;
+                        MaterialPrecioso mp = new MaterialPrecioso(id, nombre, unidades, preciounitario, descripcion, peso, materiales);
+                        listaProductos.Add(mp);
+
                     }
-                    else { precargado = false; }
+                    else if (int.Parse(values[0]) == 2)
+                    {
+                        infoNutricional = values[7];
 
-                    ProductoElectronico pe = new ProductoElectronico(id, nombre, unidades, preciounitario, descripcion, materiales,pilas, precargado);
-                    listaProductos.Add(pe);
+                        ProductoAlimenticio pa = new ProductoAlimenticio(id, nombre, unidades, preciounitario, descripcion, infoNutricional);
+                        listaProductos.Add(pa);
+
+                    }
+                    else
+                    {
+                        materiales = values[5];
+
+                        if (int.Parse(values[8]) == 1)
+                        {
+                            pilas = true;
+                        }
+                        else { pilas = false; }
+
+                        if (int.Parse(values[9]) == 1)
+                        {
+                            precargado = true;
+                        }
+                        else { precargado = false; }
+
+                        ProductoElectronico pe = new ProductoElectronico(id, nombre, unidades, preciounitario, descripcion, materiales, pilas, precargado);
+                        listaProductos.Add(pe);
+                    }
                 }
 
                 //Console.ReadLine();
