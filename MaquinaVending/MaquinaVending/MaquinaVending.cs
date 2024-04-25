@@ -73,11 +73,13 @@ namespace MaquinaVending
                 }
             }
 
-            if(!Carrito.Any()) //!Carrito.Any() //Esto está mal
+            if(Carrito.Any()) //!Carrito.Any() //Esto está mal
             {
                 Pago pago = new Pago(PrecioTotal);
 
                 pago.Pagar(Carrito);
+
+                //RestarCantidades();
             }
             else
             {
@@ -390,6 +392,20 @@ namespace MaquinaVending
             sr.Close();
 
         }
+
+        /*public void RestarCantidades()
+        {
+            Producto temp;
+            foreach (Producto p in Carrito)
+            {
+                temp = listaProductos.Find(x => x.Id == p.Id);
+
+                temp.Unidades--;
+            }
+        }*/
+
+
+
 
     }
 }
