@@ -76,6 +76,7 @@ namespace MaquinaVending
 
                         break;
                     case 2:
+                        Console.WriteLine($"Precio Total: {PrecioTotal}");
                         Console.WriteLine("Introduza el numero de tarjeta:");
                         Console.ReadLine();
                         Console.WriteLine("Fecha:");

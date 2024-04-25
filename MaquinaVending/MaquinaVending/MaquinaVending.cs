@@ -23,15 +23,18 @@ namespace MaquinaVending
         
             Carrito = new List<Producto>();
             Contador = 0;
+            
 
             Usuario = usuario;
             this.listaProductos = productos;
+
         }
 
 
         public void ComprarProductos()
         {
             bool flag = false;
+            PrecioTotal = 0;
 
             while (flag == false)
             {
@@ -48,12 +51,18 @@ namespace MaquinaVending
                     Carrito.Add(c); 
                     PrecioTotal = PrecioTotal + c.PrecioUnitario;
                     Console.WriteLine("Elemento Añadido!");
-                    Contador++;
+                    
                 }
                 else
                 {
                     Console.WriteLine("Producto no encontrado.");
                 }
+
+                foreach (Producto p in Carrito)
+                {
+                    Console.WriteLine(p.MostrarInformaciónProducto());
+                }
+                Console.WriteLine($"Precio Total: {PrecioTotal}");
 
                 Console.WriteLine("Quiere añadir otro producto? \n 1.Si\n 2.No");
                 int decision = int.Parse(Console.ReadLine());
@@ -64,9 +73,9 @@ namespace MaquinaVending
                 }
             }
 
-            if(Contador!=0) //!Carrito.Any()
+            if(!Carrito.Any()) //!Carrito.Any() //Esto está mal
             {
-                Pago pago = new Pago();
+                Pago pago = new Pago(PrecioTotal);
 
                 pago.Pagar(Carrito);
             }
@@ -103,49 +112,64 @@ namespace MaquinaVending
         {
 
             int opcion = 0;
-            
-            do
+
+            Console.WriteLine("Introduzca la clave de administrador");
+            int Clave = int.Parse(Console.ReadLine());
+            if (Clave == Usuario.Clave)
             {
-                Console.WriteLine(" --------------------------");
-                Console.WriteLine("|     CARGAR PRODUCTOS     |");
-                Console.WriteLine("|--------------------------|");
-                Console.WriteLine("|1. Añadir Existencias.    |");
-                Console.WriteLine("|2. Añadir Nuevo Producto. |");
-                Console.WriteLine("|3. Volver.                |");
-                Console.WriteLine(" --------------------------");
 
-                try {
-                    Console.WriteLine("Opción: ");
-                    opcion = int.Parse(Console.ReadLine());
-                    Console.Clear();
+                do
+                {
+                    Console.WriteLine(" --------------------------");
+                    Console.WriteLine("|     CARGAR PRODUCTOS     |");
+                    Console.WriteLine("|--------------------------|");
+                    Console.WriteLine("|1. Añadir Existencias.    |");
+                    Console.WriteLine("|2. Añadir Nuevo Producto. |");
+                    Console.WriteLine("|3. Volver.                |");
+                    Console.WriteLine(" --------------------------");
 
-                    switch (opcion) {
-                        case 1:
+                    try
+                    {
+                        Console.WriteLine("Opción: ");
+                        opcion = int.Parse(Console.ReadLine());
+                        Console.Clear();
 
-                            CambiarCantidades();
+                        switch (opcion)
+                        {
+                            case 1:
 
-                            break;
-                        case 2:
+                                CambiarCantidades();
 
-                            CargarProducto();
+                                break;
+                            case 2:
 
-                            break;
-                        case 3:
-                            Console.WriteLine("Saliendo...");
-                            break;
-                        default:
-                            Console.WriteLine("Opción Incorrecta");
-                            break;
+                                CargarProducto();
+
+                                break;
+                            case 3:
+                                Console.WriteLine("Saliendo...");
+                                break;
+                            default:
+                                Console.WriteLine("Opción Incorrecta");
+                                break;
+                        }
                     }
-                }
-                catch (FormatException) {
-                    Console.WriteLine("Error: Opción inválida. Por favor, ingre un número válido.");
-                }
-                catch (Exception ex) {
-                    Console.WriteLine("Error de E/S: " + ex.Message);
-                }
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("Error: Opción inválida. Por favor, ingre un número válido.");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error de E/S: " + ex.Message);
+                    }
 
-            } while (opcion != 3);
+                } while (opcion != 3);
+            }
+            else
+            {
+                Console.WriteLine("Clave incorrecta.");
+                Thread.Sleep(1000);
+            }
 
             Console.WriteLine("Volviendo al menú...");
             Thread.Sleep(1000);
@@ -254,6 +278,7 @@ namespace MaquinaVending
                             mp.SolicitarDetalles();
                             listaProductos.Add(mp);
                             Console.WriteLine("SE HA AÑADIDO EL PRODUCTO!!!");
+                            Contador++;
                             Thread.Sleep(1000);
                             Console.Clear();
                             break;
@@ -263,6 +288,7 @@ namespace MaquinaVending
                             pa.SolicitarDetalles();
                             listaProductos.Add(pa);
                             Console.WriteLine("SE HA AÑADIDO EL PRODUCTO!!!");
+                            Contador++;
                             Thread.Sleep(1000);
                             Console.Clear();
                             break;
@@ -272,6 +298,7 @@ namespace MaquinaVending
                             pe.SolicitarDetalles();
                             listaProductos.Add(pe);
                             Console.WriteLine("SE HA AÑADIDO EL PRODUCTO!!!");
+                            Contador++;
                             Thread.Sleep(1000);
                             Console.Clear();
                             break;
