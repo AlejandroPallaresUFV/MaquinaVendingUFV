@@ -168,7 +168,7 @@ namespace MaquinaVending
                     TextoSeleccionado =  Usuario.InsertarNombreArchivo();
                 }
 
-                CargarProducto();
+                CargarProductos();
 
                 Console.WriteLine("Carga Completada!\n Volviendo al menú...");
 

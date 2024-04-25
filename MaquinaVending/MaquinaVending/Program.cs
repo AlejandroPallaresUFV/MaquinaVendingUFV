@@ -59,12 +59,11 @@ namespace MaquinaVending
                             maquinaVending.MostrarInformacion();
                             break;
                         case 3: // Carga individual de productos
-                            maquinaVending.CargaCompleta();
-                            break;
-                        case 4://Carga completa de productos
                             maquinaVending.CargaIndividual();
                             break;
-
+                        case 4://Carga completa de productos
+                            maquinaVending.CargaCompleta();
+                            break;
                         case 5: // Salir
                             Console.WriteLine("Saliendo...");
                             break;
