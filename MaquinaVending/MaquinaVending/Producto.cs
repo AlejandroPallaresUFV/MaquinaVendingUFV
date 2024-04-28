@@ -29,16 +29,16 @@ namespace MaquinaVending
             Descripcion = descripcion;
         }
 
-        public virtual string MostrarInformaciónProducto() {
+        public virtual string MostrarInformaciónProducto() { //Funcion para mostrar la informacion
             return $"ID: {Id}\n Nombre: {Nombre}\nUnidades: {Unidades}\nPrecio: {PrecioUnitario}";
         }
 
-        public virtual string MostrarInformacionExtensa() {
+        public virtual string MostrarInformacionExtensa() { //Igual que la anerior, pero muesta más cosas
             return $"\n Nombre: {Nombre}\nPrecio: {PrecioUnitario}\nDescripción:{Descripcion}" +
                 $"\nCantidad disponible: {Unidades}";
         }
 
-        public virtual void SolicitarDetalles()
+        public virtual void SolicitarDetalles() //Funcion usada para solicitar los detalles para setear un producto
         {
             try
             {

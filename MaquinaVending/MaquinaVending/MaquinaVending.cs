@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -31,14 +32,17 @@ namespace MaquinaVending
         }
 
 
+        //Funciones Principales
+
+
         public void ComprarProductos()
         {
-            bool flag = false;
+            bool flag = false; //Se define un flag para que le bucle se repita y se puedan añadir mas de un objeto
             PrecioTotal = 0;
 
-            while (flag == false)
+            while (flag == false) 
             {
-                foreach (Producto p in listaProductos)
+                foreach (Producto p in listaProductos) //Se muestran todos los productos de la maquina
                 {
                     Console.WriteLine(p.MostrarInformaciónProducto());
                 }
@@ -46,40 +50,50 @@ namespace MaquinaVending
 
                 Producto c = Usuario.ElegirProducto();
 
-                if (c != null)
+                Console.Clear();
+
+                if (c != null) //Si el objeto se recoje correctamente...
                 {
-                    Carrito.Add(c); 
-                    PrecioTotal = PrecioTotal + c.PrecioUnitario;
-                    Console.WriteLine("Elemento Añadido!");
-                    
+                    if (ComprobarUnidades(c)) //Se comprueba si aun se pueden meter mas unidades de ese articulo
+                    {
+                        Carrito.Add(c); //se añade el producto y se suma su precio al total
+                        PrecioTotal = PrecioTotal + c.PrecioUnitario;
+                        Console.WriteLine("Elemento Añadido!");
+                    }
+                                     
                 }
                 else
                 {
                     Console.WriteLine("Producto no encontrado.");
                 }
 
-                foreach (Producto p in Carrito)
+                Console.WriteLine("\nCARRITO");
+                Console.WriteLine("--------");
+                foreach (Producto p in Carrito) //Se muestra el carrito completo
                 {
                     Console.WriteLine(p.MostrarInformaciónProducto());
                 }
                 Console.WriteLine($"Precio Total: {PrecioTotal}");
 
-                Console.WriteLine("Quiere añadir otro producto? \n 1.Si\n 2.No");
+                Console.WriteLine("\n\nQuiere añadir otro producto? \n 1.Si\n 2.No");
                 int decision = int.Parse(Console.ReadLine());
 
-                if (decision == 2)
+                Console.Clear();
+
+                if (decision == 2) //En caso de que el usuario diga "no", se pone la flag a true y se sale del bucle
                 {
                     flag = true;
                 }
             }
 
-            if(Carrito.Any()) //!Carrito.Any() //Esto está mal
+            if(Carrito.Any())  //Si el carrrito tiene productos, se crea una instancia de pago y se paga
             {
-                Pago pago = new Pago(PrecioTotal);
+                Pago pago = new Pago(PrecioTotal, Carrito);
 
                 pago.Pagar(Carrito);
 
-                //RestarCantidades();
+                PrecioTotal = 0;
+            
             }
             else
             {
@@ -99,6 +113,9 @@ namespace MaquinaVending
 
                 // Buscar el producto por ID
                 Producto p = Usuario.ElegirProducto();
+
+                Console.Clear();
+
                 // Mostrar la información del producto si existe
                 if (p != null) {
                     Console.WriteLine(p.MostrarInformacionExtensa());
@@ -117,6 +134,9 @@ namespace MaquinaVending
 
             Console.WriteLine("Introduzca la clave de administrador");
             int Clave = int.Parse(Console.ReadLine());
+            Console.Clear();
+
+
             if (Clave == Usuario.Clave)
             {
 
@@ -138,14 +158,16 @@ namespace MaquinaVending
 
                         switch (opcion)
                         {
-                            case 1:
+                            case 1: //Opcion para cambiar las uniadades de un producto
 
                                 CambiarCantidades();
+                                Console.Clear();
 
                                 break;
-                            case 2:
+                            case 2: //Opcion para cargar un producto nuevo
 
                                 CargarProducto();
+                                Console.Clear();
 
                                 break;
                             case 3:
@@ -181,20 +203,22 @@ namespace MaquinaVending
         {
             Console.WriteLine("Introduzca la clave de administrador");
             int Clave = int.Parse(Console.ReadLine());
+            Console.Clear();
+
             if (Clave == Usuario.Clave) 
             {
-                Console.WriteLine("Desea cambiar el archivo de texto seleccionado?");
+                Console.WriteLine("Desea cambiar el archivo de texto seleccionado?"); //Se da la opción de cambiar el tetxo predeterminado
                 Console.WriteLine($"El actual es {TextoSeleccionado}");
 
                 Console.WriteLine(" 1.Si\n 2.No");
                 int opcion = int.Parse(Console.ReadLine());
 
-                if(opcion == 1)
+                if(opcion == 1) //En caso de que así sea, se altera la variable
                 {
                     TextoSeleccionado =  Usuario.InsertarNombreArchivo();
                 }
 
-                CargarProductos();
+                CargarProductos(); //se ejecuta la funcion de carga completa
 
                 Console.WriteLine("Carga Completada!\n Volviendo al menú...");
 
@@ -216,7 +240,7 @@ namespace MaquinaVending
         }
 
 
-
+        //Funciones de apoyo
 
 
         public void CambiarCantidades()
@@ -228,7 +252,7 @@ namespace MaquinaVending
             }
             Console.Write("Introduzca el Id del producto a añadir: ");
             int id = int.Parse(Console.ReadLine());
-            foreach (Producto p in listaProductos)
+            foreach (Producto p in listaProductos) //Se busca el producto que se desea cambiar
             {
                 if (id == p.Id)
                 {
@@ -236,16 +260,16 @@ namespace MaquinaVending
                     Console.WriteLine("Cuantas unidades desea añadir?: ");
                     int cantidad = int.Parse(Console.ReadLine());
 
-                    p.Unidades = p.Unidades + cantidad;
+                    p.Unidades = p.Unidades + cantidad; //Se le suman las unidades indicadas
 
-                    exito = true;
+                    exito = true; //El producto se ha encontrado y cambiado con exito
 
                     Console.WriteLine("Producto modificado!");
 
                 }
 
             }
-            if (exito == false)
+            if (exito == false) //Si ha surgido un error, salta el mensaje
             {
                 Console.WriteLine("Producto no encontrado.");
             }
@@ -270,21 +294,21 @@ namespace MaquinaVending
                     int opcion = int.Parse(Console.ReadLine());
                     Console.Clear();
 
-                    switch (opcion)
+                    switch (opcion) //Se añade el producto y se suma al contador para no superar el limite
                     {
 
 
-                        case 1:
+                        case 1://Añadir Material Precioso
                             Console.WriteLine("Introduciendo Material Precioso...");
                             MaterialPrecioso mp = new MaterialPrecioso(listaProductos.Count);
-                            mp.SolicitarDetalles();
+                            mp.SolicitarDetalles(); //Los detalles se solicitan en cada clase
                             listaProductos.Add(mp);
                             Console.WriteLine("SE HA AÑADIDO EL PRODUCTO!!!");
                             Contador++;
                             Thread.Sleep(1000);
                             Console.Clear();
                             break;
-                        case 2:
+                        case 2://Añadir Producto Alimenticio
                             Console.WriteLine("Introduciendo Producto Alimenticio...");
                             ProductoAlimenticio pa = new ProductoAlimenticio(listaProductos.Count);
                             pa.SolicitarDetalles();
@@ -294,7 +318,7 @@ namespace MaquinaVending
                             Thread.Sleep(1000);
                             Console.Clear();
                             break;
-                        case 3:
+                        case 3://Añadir Producto Electronico
                             Console.WriteLine("Introduciendo Producto Electónico...");
                             ProductoElectronico pe = new ProductoElectronico(listaProductos.Count);
                             pe.SolicitarDetalles();
@@ -320,7 +344,7 @@ namespace MaquinaVending
             }
         }
 
-        public void CargarProductos()
+        public void CargarProductos() //Carga de texto a través de documento de texto
         {
             string separator = ";";
             string path = TextoSeleccionado;
@@ -340,15 +364,17 @@ namespace MaquinaVending
                 string descripcion; string infoNutricional; string materiales;
                 bool pilas; bool precargado; string peso;
 
+                //Se cubren las variables comunes
                 nombre = values[1];
                 unidades = int.Parse(values[2]);
                 preciounitario = double.Parse(values[3]);
                 descripcion = values[4];
 
-                if (Contador < 12)
+                if (Contador < 12) //En caso de llegar al limite, no añade más productos
                 {
+                    //Y luego se cubren las especificas
 
-                    if (int.Parse(values[0]) == 1)
+                    if (int.Parse(values[0]) == 1) //Caso de que sea un material precioso 
                     {
                         materiales = values[5];
                         peso = values[6];
@@ -357,7 +383,7 @@ namespace MaquinaVending
                         listaProductos.Add(mp);
 
                     }
-                    else if (int.Parse(values[0]) == 2)
+                    else if (int.Parse(values[0]) == 2) //Caso de que se un producto alimentico
                     {
                         infoNutricional = values[7];
 
@@ -365,7 +391,7 @@ namespace MaquinaVending
                         listaProductos.Add(pa);
 
                     }
-                    else
+                    else //Caso de que sea un producto electronico
                     {
                         materiales = values[5];
 
@@ -393,19 +419,29 @@ namespace MaquinaVending
 
         }
 
-        /*public void RestarCantidades()
+        public bool ComprobarUnidades(Producto c) //Comprueba si se pueden añadir más unidades
         {
-            Producto temp;
-            foreach (Producto p in Carrito)
+            int contador = 0;
+            bool retorno = true;
+
+            foreach (Producto p in Carrito) //Recorre el carrito y busca todos los productos con el mismo id del producto añadir
             {
-                temp = listaProductos.Find(x => x.Id == p.Id);
-
-                temp.Unidades--;
+                if (p.Id == c.Id) // Si encuentra uno, suma la contador
+                {
+                    contador++;
+                }
             }
-        }*/
 
+            if(contador >= c.Unidades) //En caso de que en el carrito haya tantos productos como en la maquina, devuelve false
+            {
+                Console.WriteLine("Se ha excedido el limite de unidades de este producto, imposible añadirlo al carrito");
+                retorno = false;
+            }
 
+            return retorno;
 
+            
+        }
 
     }
 }

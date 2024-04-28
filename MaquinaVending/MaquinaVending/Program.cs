@@ -34,7 +34,7 @@ namespace MaquinaVending
            
         }
 
-        public static void Menu(MaquinaVending maquinaVending) 
+        public static void Menu(MaquinaVending maquinaVending) //Menu principal de la Maquina de Vending
         
         {
             int opcion = 0;

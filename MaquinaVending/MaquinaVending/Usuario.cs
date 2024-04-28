@@ -21,7 +21,7 @@ namespace MaquinaVending
             this.listaProductos = productos;
         }  
 
-        public Producto ElegirProducto()
+        public Producto ElegirProducto() //Funcion usada por el usuario para elegir producto en las opciones 1 y 2. Devuelve la referencia al obejto
         {
 
             Console.WriteLine("Introduce el Id del producto");
@@ -32,7 +32,7 @@ namespace MaquinaVending
             return c;
         }
 
-        public string InsertarNombreArchivo()
+        public string InsertarNombreArchivo() //Funcion usada para que el usuario escriba el texto del que se quieren añadir productos. Devuelve un string.
         {
             string texto;
 
@@ -42,9 +42,5 @@ namespace MaquinaVending
             return texto;
         }
 
-        public void CargarProducto()
-        {
-
-        }
     }
 }
