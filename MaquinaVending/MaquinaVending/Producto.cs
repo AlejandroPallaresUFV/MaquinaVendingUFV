@@ -17,7 +17,7 @@ namespace MaquinaVending
 
         public Producto (int id)
         {
-            id = Id;
+            Id= id;
         }
 
         public Producto(int id, string nombre, int unidades, double preciounitario, string descripcion) 

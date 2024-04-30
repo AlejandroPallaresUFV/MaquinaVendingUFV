@@ -323,13 +323,15 @@ namespace MaquinaVending
                     int opcion = int.Parse(Console.ReadLine());
                     Console.Clear();
 
+                    int id = listaProductos.Count;
+
                     switch (opcion) //Se añade el producto y se suma al contador para no superar el limite
                     {
 
 
                         case 1://Añadir Material Precioso
                             Console.WriteLine("Introduciendo Material Precioso...");
-                            MaterialPrecioso mp = new MaterialPrecioso(listaProductos.Count);
+                            MaterialPrecioso mp = new MaterialPrecioso(id);
                             mp.SolicitarDetalles(); //Los detalles se solicitan en cada clase
                             listaProductos.Add(mp);
                             Console.WriteLine("SE HA AÑADIDO EL PRODUCTO!!!");
@@ -339,7 +341,7 @@ namespace MaquinaVending
                             break;
                         case 2://Añadir Producto Alimenticio
                             Console.WriteLine("Introduciendo Producto Alimenticio...");
-                            ProductoAlimenticio pa = new ProductoAlimenticio(listaProductos.Count);
+                            ProductoAlimenticio pa = new ProductoAlimenticio(id);
                             pa.SolicitarDetalles();
                             listaProductos.Add(pa);
                             Console.WriteLine("SE HA AÑADIDO EL PRODUCTO!!!");
@@ -349,7 +351,7 @@ namespace MaquinaVending
                             break;
                         case 3://Añadir Producto Electronico
                             Console.WriteLine("Introduciendo Producto Electónico...");
-                            ProductoElectronico pe = new ProductoElectronico(listaProductos.Count);
+                            ProductoElectronico pe = new ProductoElectronico(id);
                             pe.SolicitarDetalles();
                             listaProductos.Add(pe);
                             Console.WriteLine("SE HA AÑADIDO EL PRODUCTO!!!");
@@ -377,74 +379,87 @@ namespace MaquinaVending
         {
             string separator = ";";
             string path = TextoSeleccionado;
-            StreamReader sr = File.OpenText(path);
 
-            string header = sr.ReadLine();
-
-            string[] names = header.Split(char.Parse(separator)); 
-            string line = "";
-
-            while ((line = sr.ReadLine()) != null)
+            try
             {
-                string[] values = line.Split(char.Parse(separator));
-                
-                int id = listaProductos.Count;
-                string nombre; int unidades; double preciounitario; 
-                string descripcion; string infoNutricional; string materiales;
-                bool pilas; bool precargado; string peso;
+                StreamReader sr = File.OpenText(path);
 
-                //Se cubren las variables comunes
-                nombre = values[1];
-                unidades = int.Parse(values[2]);
-                preciounitario = double.Parse(values[3]);
-                descripcion = values[4];
+                string header = sr.ReadLine();
 
-                if (Contador < 12) //En caso de llegar al limite, no añade más productos
+                string[] names = header.Split(char.Parse(separator));
+                string line = "";
+
+                while ((line = sr.ReadLine()) != null)
                 {
-                    //Y luego se cubren las especificas
+                    string[] values = line.Split(char.Parse(separator));
 
-                    if (int.Parse(values[0]) == 1) //Caso de que sea un material precioso 
+                    int id = listaProductos.Count;
+                    string nombre; int unidades; double preciounitario;
+                    string descripcion; string infoNutricional; string materiales;
+                    bool pilas; bool precargado; string peso;
+
+                    //Se cubren las variables comunes
+                    nombre = values[1];
+                    unidades = int.Parse(values[2]);
+                    preciounitario = double.Parse(values[3]);
+                    descripcion = values[4];
+
+                    if (Contador < 12) //En caso de llegar al limite, no añade más productos
                     {
-                        materiales = values[5];
-                        peso = values[6];
+                        //Y luego se cubren las especificas
 
-                        MaterialPrecioso mp = new MaterialPrecioso(id, nombre, unidades, preciounitario, descripcion, peso, materiales);
-                        listaProductos.Add(mp);
-
-                    }
-                    else if (int.Parse(values[0]) == 2) //Caso de que se un producto alimentico
-                    {
-                        infoNutricional = values[7];
-
-                        ProductoAlimenticio pa = new ProductoAlimenticio(id, nombre, unidades, preciounitario, descripcion, infoNutricional);
-                        listaProductos.Add(pa);
-
-                    }
-                    else //Caso de que sea un producto electronico
-                    {
-                        materiales = values[5];
-
-                        if (int.Parse(values[8]) == 1)
+                        if (int.Parse(values[0]) == 1) //Caso de que sea un material precioso 
                         {
-                            pilas = true;
-                        }
-                        else { pilas = false; }
+                            materiales = values[5];
+                            peso = values[6];
 
-                        if (int.Parse(values[9]) == 1)
+                            MaterialPrecioso mp = new MaterialPrecioso(id, nombre, unidades, preciounitario, descripcion, peso, materiales);
+                            listaProductos.Add(mp);
+
+                        }
+                        else if (int.Parse(values[0]) == 2) //Caso de que se un producto alimentico
                         {
-                            precargado = true;
-                        }
-                        else { precargado = false; }
+                            infoNutricional = values[7];
 
-                        ProductoElectronico pe = new ProductoElectronico(id, nombre, unidades, preciounitario, descripcion, materiales, pilas, precargado);
-                        listaProductos.Add(pe);
+                            ProductoAlimenticio pa = new ProductoAlimenticio(id, nombre, unidades, preciounitario, descripcion, infoNutricional);
+                            listaProductos.Add(pa);
+
+                        }
+                        else //Caso de que sea un producto electronico
+                        {
+                            materiales = values[5];
+
+                            if (int.Parse(values[8]) == 1)
+                            {
+                                pilas = true;
+                            }
+                            else { pilas = false; }
+
+                            if (int.Parse(values[9]) == 1)
+                            {
+                                precargado = true;
+                            }
+                            else { precargado = false; }
+
+                            ProductoElectronico pe = new ProductoElectronico(id, nombre, unidades, preciounitario, descripcion, materiales, pilas, precargado);
+                            listaProductos.Add(pe);
+                        }
                     }
+
+                    //Console.ReadLine();
                 }
 
-                //Console.ReadLine();
-            }
+                sr.Close();
 
-            sr.Close();
+            }
+            catch (FileNotFoundException ex)
+            {
+                Console.WriteLine("No se encuentra el archivo de contenidos: " + ex.Message);
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine("Error de E/S: " + ex.Message);
+            }
 
         }
 
