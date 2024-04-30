@@ -9,14 +9,6 @@ namespace MaquinaVending
 {
     internal class Program
     {
-        //Errores
-        //No va el Precio Total
-        //No va el ver si el carrito esta vacío 
-        //Errores con el parse
-
-        //Falta modificar cantidades y poner que no se pueda comprar si la lista esta vacia
-
-
         static List <Producto> listaProductos;
 
         static Usuario usuario;
