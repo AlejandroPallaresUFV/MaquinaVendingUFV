@@ -34,6 +34,7 @@ namespace MaquinaVending
                     case 1: //Pago en efectivo
                         do
                         {
+
                             Console.WriteLine($"Pago restante:{PrecioTotal} euros");
                             Console.WriteLine("Introduce una moneda (valor en euros) | Pulse 0 para cancelar el pago:");
                             double dinero = int.Parse(Console.ReadLine());

@@ -131,68 +131,75 @@ namespace MaquinaVending
         {
 
             int opcion = 0;
-
-            Console.WriteLine("Introduzca la clave de administrador");
-            int Clave = int.Parse(Console.ReadLine());
-            Console.Clear();
-
-
-            if (Clave == Usuario.Clave)
+            try
             {
 
-                do
+                Console.WriteLine("Introduzca la clave de administrador");
+                int Clave = int.Parse(Console.ReadLine());
+                Console.Clear();
+
+
+                if (Clave == Usuario.Clave)
                 {
-                    Console.WriteLine(" --------------------------");
-                    Console.WriteLine("|     CARGAR PRODUCTOS     |");
-                    Console.WriteLine("|--------------------------|");
-                    Console.WriteLine("|1. Añadir Existencias.    |");
-                    Console.WriteLine("|2. Añadir Nuevo Producto. |");
-                    Console.WriteLine("|3. Volver.                |");
-                    Console.WriteLine(" --------------------------");
 
-                    try
+                    do
                     {
-                        Console.WriteLine("Opción: ");
-                        opcion = int.Parse(Console.ReadLine());
-                        Console.Clear();
+                        Console.WriteLine(" --------------------------");
+                        Console.WriteLine("|     CARGAR PRODUCTOS     |");
+                        Console.WriteLine("|--------------------------|");
+                        Console.WriteLine("|1. Añadir Existencias.    |");
+                        Console.WriteLine("|2. Añadir Nuevo Producto. |");
+                        Console.WriteLine("|3. Volver.                |");
+                        Console.WriteLine(" --------------------------");
 
-                        switch (opcion)
+                        try
                         {
-                            case 1: //Opcion para cambiar las uniadades de un producto
+                            Console.WriteLine("Opción: ");
+                            opcion = int.Parse(Console.ReadLine());
+                            Console.Clear();
 
-                                CambiarCantidades();
-                                Console.Clear();
+                            switch (opcion)
+                            {
+                                case 1: //Opcion para cambiar las uniadades de un producto
 
-                                break;
-                            case 2: //Opcion para cargar un producto nuevo
+                                    CambiarCantidades();
+                                    Console.Clear();
 
-                                CargarProducto();
-                                Console.Clear();
+                                    break;
+                                case 2: //Opcion para cargar un producto nuevo
 
-                                break;
-                            case 3:
-                                Console.WriteLine("Saliendo...");
-                                break;
-                            default:
-                                Console.WriteLine("Opción Incorrecta");
-                                break;
+                                    CargarProducto();
+                                    Console.Clear();
+
+                                    break;
+                                case 3:
+                                    Console.WriteLine("Saliendo...");
+                                    break;
+                                default:
+                                    Console.WriteLine("Opción Incorrecta");
+                                    break;
+                            }
                         }
-                    }
-                    catch (FormatException)
-                    {
-                        Console.WriteLine("Error: Opción inválida. Por favor, ingre un número válido.");
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine("Error de E/S: " + ex.Message);
-                    }
+                        catch (FormatException)
+                        {
+                            Console.WriteLine("Error: Opción inválida. Por favor, ingre un número válido.");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("Error de E/S: " + ex.Message);
+                        }
 
-                } while (opcion != 3);
+                    } while (opcion != 3);
+                }
+                else
+                {
+                    Console.WriteLine("Clave incorrecta.");
+                    Thread.Sleep(1000);
+                }
             }
-            else
+            catch (FormatException)
             {
-                Console.WriteLine("Clave incorrecta.");
-                Thread.Sleep(1000);
+                Console.WriteLine("Error: Dato no válido. Por favor, ingrese un dato válido.");
             }
 
             Console.WriteLine("Volviendo al menú...");
@@ -201,33 +208,44 @@ namespace MaquinaVending
 
         public void CargaCompleta()
         {
-            Console.WriteLine("Introduzca la clave de administrador");
-            int Clave = int.Parse(Console.ReadLine());
-            Console.Clear();
-
-            if (Clave == Usuario.Clave) 
+            try
             {
-                Console.WriteLine("Desea cambiar el archivo de texto seleccionado?"); //Se da la opción de cambiar el tetxo predeterminado
-                Console.WriteLine($"El actual es {TextoSeleccionado}");
+                Console.WriteLine("Introduzca la clave de administrador");
+                int Clave = int.Parse(Console.ReadLine());
+                Console.Clear();
 
-                Console.WriteLine(" 1.Si\n 2.No");
-                int opcion = int.Parse(Console.ReadLine());
-
-                if(opcion == 1) //En caso de que así sea, se altera la variable
+                if (Clave == Usuario.Clave)
                 {
-                    TextoSeleccionado =  Usuario.InsertarNombreArchivo();
+                    Console.WriteLine("Desea cambiar el archivo de texto seleccionado?"); //Se da la opción de cambiar el tetxo predeterminado
+                    Console.WriteLine($"El actual es {TextoSeleccionado}");
+
+                    Console.WriteLine(" 1.Si\n 2.No");
+                    int opcion = int.Parse(Console.ReadLine());
+
+                    if (opcion == 1) //En caso de que así sea, se altera la variable
+                    {
+                        TextoSeleccionado = Usuario.InsertarNombreArchivo();
+                    }
+
+                    CargarProductos(); //se ejecuta la funcion de carga completa
+
+                    Console.WriteLine("Carga Completada!\n Volviendo al menú...");
+
                 }
+                else
+                {
+                    Console.WriteLine("Clave incorrecta, volviendo al menú...");
+                    Thread.Sleep(1000);
 
-                CargarProductos(); //se ejecuta la funcion de carga completa
-
-                Console.WriteLine("Carga Completada!\n Volviendo al menú...");
-
+                }
             }
-            else
+            catch (FormatException)
             {
-                Console.WriteLine("Clave incorrecta, volviendo al menú...");
-                Thread.Sleep(1000);
-                
+                Console.WriteLine("Error: Dato no válido. Por favor, ingrese un dato válido.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
             }
             Thread.Sleep(1000);
             Console.Clear();
@@ -246,32 +264,43 @@ namespace MaquinaVending
         public void CambiarCantidades()
         {
             bool exito = false;
-            foreach (Producto p in listaProductos)
+            try
             {
-                Console.WriteLine(p.MostrarInformaciónProducto());
-            }
-            Console.Write("Introduzca el Id del producto a añadir: ");
-            int id = int.Parse(Console.ReadLine());
-            foreach (Producto p in listaProductos) //Se busca el producto que se desea cambiar
-            {
-                if (id == p.Id)
+                foreach (Producto p in listaProductos)
                 {
-                    Console.WriteLine("Hay " + p.Unidades + " de " + p.Nombre + ".");
-                    Console.WriteLine("Cuantas unidades desea añadir?: ");
-                    int cantidad = int.Parse(Console.ReadLine());
+                    Console.WriteLine(p.MostrarInformaciónProducto());
+                }
+                Console.Write("Introduzca el Id del producto a añadir: ");
+                int id = int.Parse(Console.ReadLine());
+                foreach (Producto p in listaProductos) //Se busca el producto que se desea cambiar
+                {
+                    if (id == p.Id)
+                    {
+                        Console.WriteLine("Hay " + p.Unidades + " de " + p.Nombre + ".");
+                        Console.WriteLine("Cuantas unidades desea añadir?: ");
+                        int cantidad = int.Parse(Console.ReadLine());
 
-                    p.Unidades = p.Unidades + cantidad; //Se le suman las unidades indicadas
+                        p.Unidades = p.Unidades + cantidad; //Se le suman las unidades indicadas
 
-                    exito = true; //El producto se ha encontrado y cambiado con exito
+                        exito = true; //El producto se ha encontrado y cambiado con exito
 
-                    Console.WriteLine("Producto modificado!");
+                        Console.WriteLine("Producto modificado!");
+
+                    }
 
                 }
-
+                if (exito == false) //Si ha surgido un error, salta el mensaje
+                {
+                    Console.WriteLine("Producto no encontrado.");
+                }
             }
-            if (exito == false) //Si ha surgido un error, salta el mensaje
+            catch (FormatException)
             {
-                Console.WriteLine("Producto no encontrado.");
+                Console.WriteLine("Error: Dato no válido. Por favor, ingrese un dato válido.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
             }
         }
 
